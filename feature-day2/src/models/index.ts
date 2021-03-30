@@ -1,0 +1,1 @@
+import FruitModel from './fruit'
