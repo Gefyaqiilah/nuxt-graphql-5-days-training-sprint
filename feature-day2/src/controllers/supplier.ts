@@ -8,12 +8,7 @@ class Controller {
     try {
       const suppliers = await Supplier.findAll({
         include: {
-          model: Fruit,
-          where: {
-            name:  {
-              [Op.like]: `%${fruitName}%`
-            }
-          }
+          model: Fruit
         }
       })
       res.status(200).send(suppliers)

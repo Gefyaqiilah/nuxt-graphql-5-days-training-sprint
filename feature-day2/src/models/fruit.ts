@@ -1,10 +1,6 @@
 import {DataTypes, Model, Sequelize, Optional } from 'sequelize'
-import { configs } from '../config/config'
+import sequelize from '../config/config'
 
-const sequelize = new Sequelize(configs.database, configs.username, configs.password,
-   {port: configs.config.port || 54320,
-  host: configs.config.host || "localhost",
-  dialect: "postgres",})
 interface FruitAttributes {
     id: number
     name: string

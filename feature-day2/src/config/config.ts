@@ -1,4 +1,6 @@
-export const configs = {
+import { Sequelize } from 'sequelize'
+
+const configs = {
   username: "postgres",
   password: "gefypostgre",
   database: "fruit",
@@ -8,3 +10,9 @@ export const configs = {
     dialect: "postgres"
   }
 }
+const sequelize = new Sequelize(configs.database, configs.username, configs.password,
+  {port: configs.config.port || 54320,
+ host: configs.config.host || "localhost",
+ dialect: "postgres",})
+
+export default sequelize

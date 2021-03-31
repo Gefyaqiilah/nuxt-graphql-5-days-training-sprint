@@ -7,7 +7,6 @@ class Controller {
       await Fruit.create({ name, is_sweet: isSweet, quantity })
       res.send('fruit has been created')
     } catch (error) {
-      console.log(`error`, error)
       res.send('created failed') 
     }
   }

@@ -1,10 +1,5 @@
 import {DataTypes, Model, Sequelize, Optional } from 'sequelize'
-import { configs } from '../config/config'
-
-const sequelize = new Sequelize(configs.database, configs.username, configs.password,
-   {port: configs.config.port || 54320,
-  host: configs.config.host || "localhost",
-  dialect: "postgres",})
+import sequelize from '../config/config'
 
 interface SupplierAttributes {
     id: number
