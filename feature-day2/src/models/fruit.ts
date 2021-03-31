@@ -33,6 +33,7 @@ Fruit.init({
   is_sweet: DataTypes.BOOLEAN,
   quantity: DataTypes.INTEGER
 }, {
+  timestamps: false,
   tableName: 'fruits',
   sequelize,
   freezeTableName: true

@@ -5,5 +5,6 @@ const router = Router()
 
 router
 .get('/:fruitName', controllers.getSupplierByFruitName)
+.post('/', controllers.insertFruit)
 
 export default router

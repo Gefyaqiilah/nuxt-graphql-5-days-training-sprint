@@ -1,6 +1,5 @@
 import app from './app'
 import { config as envConfig } from 'dotenv'
-import { Sequelize } from 'sequelize'
 
 import sequelize from './config/config'
 class App {
@@ -11,7 +10,7 @@ class App {
   }
   async serve() {
     try {
-      sequelize.sync()
+      await sequelize.sync()
       app.listen(this.port, () => console.log('Server running on port :' + this.port))
     } catch (error) {
       console.log(`error`, error)
