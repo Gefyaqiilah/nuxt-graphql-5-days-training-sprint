@@ -18,10 +18,12 @@
     "fs": "0.0.1-security",
     "graphql": "^15.5.0",
     "morgan": "^1.10.0",
+    "uuid": "^8.3.2",
     "ws": "^7.4.4"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
-    "@types/node": "^14.14.37"
+    "@types/node": "^14.14.37",
+    "tsc": "^1.20150623.0"
   }
 }

@@ -27,7 +27,7 @@ const server = new ApolloServer({
   resolvers,
   context: {
     models,
-    me: students[1]
+    me: models.users[1]
   }
 })
 

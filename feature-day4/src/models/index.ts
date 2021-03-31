@@ -1,44 +1,30 @@
-const students = {
+let users = {
   1: {
     id: '1',
-    username: 'Gefy aqiilah aqshal',
-    email: 'gefy@gmail.com'
+    username: 'Robin Wieruch',
+    messageIds: [1],
   },
   2: {
     id: '2',
-    username: 'sahira',
-    email: 'sahira@gmail.com'
-  }
-}
-const me = {
+    username: 'Dave Davids',
+    messageIds: [2],
+  },
+};
+
+let messages = {
   1: {
     id: '1',
-    username: 'Gefy aqiilah',
-    email: 'gefy@gmail.com'
+    text: 'Hello World',
+    userId: '1',
   },
   2: {
     id: '2',
-    username: 'sahira',
-    email: 'sahira@gmail.com'
-  }
-}
-const messages = {
-  1: {
-    id: "1",
-    text: 'hello world'
+    text: 'By World',
+    userId: '2',
   },
-  2: {
-    id: '2',
-    text: 'lorem ipsum'
-  },
-  3: {
-    id: '3',
-    text: 'dolor sit amet'
-  },
-}
+};
 
 export default {
+  users,
   messages,
-  students,
-  me
-}
+};
