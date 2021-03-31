@@ -5,21 +5,20 @@ const sequelize = new Sequelize(configs.database, configs.username, configs.pass
    {port: configs.config.port || 54320,
   host: configs.config.host || "localhost",
   dialect: "postgres",})
-interface FruitAttributes {
+
+interface SupplierAttributes {
     id: number
-    name: string
-    is_sweet: boolean
-    quantity: number
+    username: string
+    fruit_id:number
 }
 
 // Some attributes are optional in `User.build` and `User.create` calls
-interface FruitCreationAttributes extends Optional<FruitAttributes, "id"> {}
+interface SupplierCreationAttributes extends Optional<SupplierAttributes, "id"> {}
 
-class Fruit extends Model<FruitAttributes, FruitCreationAttributes> implements FruitAttributes {
+class Supplier extends Model<SupplierAttributes, SupplierCreationAttributes> implements SupplierAttributes {
   public id!: number; // Note that the `null assertion` `!` is required in strict mode.
-  public name!: string;
-  public is_sweet: boolean
-  public quantity: number
+  public username!: string;
+  public fruit_id: number
 
   // timestamps!
   public readonly createdAt!: Date;
@@ -27,19 +26,18 @@ class Fruit extends Model<FruitAttributes, FruitCreationAttributes> implements F
   
 }
 
-Fruit.init({
+Supplier.init({
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true
   },
-  name: DataTypes.STRING,
-  is_sweet: DataTypes.BOOLEAN,
-  quantity: DataTypes.INTEGER
+  username: DataTypes.STRING,
+  fruit_id: DataTypes.BOOLEAN
 }, {
-  tableName: 'fruits',
+  tableName: 'suppliers',
   sequelize,
   freezeTableName: true
 });
 
-export default Fruit
+export default Supplier
