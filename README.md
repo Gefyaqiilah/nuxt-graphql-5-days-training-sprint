@@ -55,14 +55,14 @@ Try to complete the tasks given per day. This training should take around 5 (fiv
 
 **References**
 
-- [ ] have forked this repository and pushed the develop branch
-- [ ] have followed [NodeJS tutorial](https://www.tutorialspoint.com/nodejs/index.htm)
-- [ ] have followed [TypeScript tutorial](https://www.tutorialspoint.com/typescript/index.htm)
-- [ ] have made a [simple web server using Node & TypeScript](https://blog.risingstack.com/building-a-node-js-app-with-typescript-tutorial/)
+- [x] have forked this repository and pushed the develop branch
+- [x] have followed [NodeJS tutorial](https://www.tutorialspoint.com/nodejs/index.htm)
+- [x] have followed [TypeScript tutorial](https://www.tutorialspoint.com/typescript/index.htm)
+- [x] have made a [simple web server using Node & TypeScript](https://blog.risingstack.com/building-a-node-js-app-with-typescript-tutorial/)
 
 **Task**
 
-- [ ] have added route `/custom` that return `Hello [my-name]!`
+- [x] have added route `/custom` that return `Hello [my-name]!`
  
  
 ### Day 2 - Front End - VueJS
@@ -89,12 +89,12 @@ Sample (not mandatory to look like [this](https://www.freecodecamp.org/news/lear
 
 **References**
 
-- [ ] have followed [ExpressJS tutorial](https://www.tutorialspoint.com/expressjs/index.htm)
-- [ ] have finished [tutorial to build a API server using Express + PostgreSQL](https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/)
+- [x] have followed [ExpressJS tutorial](https://www.tutorialspoint.com/expressjs/index.htm)
+- [x] have finished [tutorial to build a API server using Express + PostgreSQL](https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/)
 
 **Task**
 
-- [ ] change the database connection from directly to PostgreSQL into`Sequelize` as the ORM connection
+- [x] change the database connection from directly to PostgreSQL into`Sequelize` as the ORM connection
 
 Reference : [Setup PostgreSQL with Sequelize in Express](https://www.robinwieruch.de/postgres-express-setup-tutorial)
 
@@ -103,9 +103,9 @@ Reference : [Setup PostgreSQL with Sequelize in Express](https://www.robinwieruc
 
 **References**
 
-- [ ] have followed the [GraphQL tutorial](https://www.tutorialspoint.com/graphql/index.htm)
-- [ ] have followed [GraphQL and Express sample app tutorial](https://medium.com/codingthesmartway-com-blog/creating-a-graphql-server-with-node-js-and-express-f6dddc5320e1)
-- [ ] have followed [GraphQL w/ Apollo Server tutorial](https://www.robinwieruch.de/graphql-apollo-server-tutorial)
+- [x] have followed the [GraphQL tutorial](https://www.tutorialspoint.com/graphql/index.htm)
+- [x] have followed [GraphQL and Express sample app tutorial](https://medium.com/codingthesmartway-com-blog/creating-a-graphql-server-with-node-js-and-express-f6dddc5320e1)
+- [x] have followed [GraphQL w/ Apollo Server tutorial](https://www.robinwieruch.de/graphql-apollo-server-tutorial)
 
 **Task**
 
