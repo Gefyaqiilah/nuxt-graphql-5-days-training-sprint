@@ -20,10 +20,8 @@ const Master = sequelize.define('Master', {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            notEmpty: true,
-            len: [6, 10]
-        }
-        
+            notEmpty: true
+        }       
     },
     createdAt: {
         type: DataTypes.DATE,

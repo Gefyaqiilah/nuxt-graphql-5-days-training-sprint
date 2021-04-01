@@ -5,7 +5,7 @@ export default gql`
         login(username:String!, password:String!):Login
     }
     type Mutation {
-        createMaster(username: String!, password: String!): String!
+        createMaster(username: String!, password: String!): Master!
     }
     type Master {
         username: String
@@ -13,5 +13,11 @@ export default gql`
     }
     type Login {
         token: String!
+    }
+    type Subscription {
+        masterCreated: MasterCreated!
+    }
+    type MasterCreated {
+        master: Master!
     }
 `

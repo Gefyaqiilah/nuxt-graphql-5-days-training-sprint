@@ -4,6 +4,8 @@ import { UserInputError, AuthenticationError } from 'apollo-server-express'
 import { combineResolvers } from 'graphql-resolvers'
 import { authorization } from '../helpers/authorization'
 
+import pubsub, { EVENTS } from '../subscription/index'
+
 export default {
     Query: {
         login: async(_, {username, password}, {models, userLogin}) => {
@@ -31,12 +33,22 @@ export default {
                 try {
                     const salt = bcrypt.genSaltSync(10);
                     const hash = bcrypt.hashSync(password, salt);
-                    await models.Master.create({ username, passwordHash: hash })
-                    return 'user has been created'
+                    const master = await models.Master.create({ username, passwordHash: hash })
+                    
+                    pubsub.publish(EVENTS.MASTER.CREATED, {
+                        masterCreated: { master }
+                    })
+
+                    return master
                 } catch (error) {
                     throw new Error(error)
                 }
             }
         )
+    },
+    Subscription: {
+        masterCreated: {
+            subscribe: () => pubsub.asyncIterator(EVENTS.MASTER.CREATED)
+        }
     }
 }
