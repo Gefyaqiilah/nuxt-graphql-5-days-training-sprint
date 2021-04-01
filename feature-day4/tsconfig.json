@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "outDir": "dist",
+    "target": "ES6",
+    "module": "commonjs",
+    "sourceMap": true
+  },
+  "include": [
+    "src/**/*.ts", "src/**/*.graphql", "src/**/*.json"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
