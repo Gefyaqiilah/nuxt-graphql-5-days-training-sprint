@@ -1,10 +1,10 @@
 import { gql } from 'apollo-server-express'
 
 export default gql`
-    type Query {
+    extend type Query {
         login(username:String!, password:String!):Login
     }
-    type Mutation {
+    extend type Mutation {
         createMaster(username: String!, password: String!): Master!
     }
     type Master {
@@ -14,7 +14,7 @@ export default gql`
     type Login {
         token: String!
     }
-    type Subscription {
+    extend type Subscription {
         masterCreated: MasterCreated!
     }
     type MasterCreated {

@@ -1,4 +1,18 @@
 import { gql } from 'apollo-server-express';
-import masterSchema from './master'
+import master from './master'
+import member from './member'
+import task from './task'
 
-export default [masterSchema]
+const linkSchema = gql`
+    type Query {
+        _: Boolean
+    }
+    type Mutation {
+        _: Boolean
+    }
+    type Subscription {
+        _: Boolean
+    }
+`
+
+export default [linkSchema, master, member, task]
