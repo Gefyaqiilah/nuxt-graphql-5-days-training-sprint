@@ -1,8 +1,6 @@
 import { gql } from 'apollo-server-express'
 
 export default gql`
-  union ToDoResult = ToDo | Error
-  
   extend type Query {
     todos: [ToDo!]
     todo(id:Int!):ToDo
@@ -10,6 +8,7 @@ export default gql`
   extend type Mutation {
     createTask(task: String!):ToDo!
     deleteTask(id:Int!):String!
+    updateTask(id:Int!, task:String!):ToDo
   }
   type ToDo {
     id: ID!
