@@ -1,4 +1,3 @@
-import userResolvers from '../resolvers/user';
-import messageResolvers from '../resolvers/message';
+import todoResolvers from './todo';
 
-export default [userResolvers, messageResolvers];
+export default [todoResolvers];
