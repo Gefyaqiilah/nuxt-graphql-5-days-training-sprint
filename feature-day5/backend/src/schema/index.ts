@@ -13,6 +13,11 @@ const linkSchema = gql`
     type Subscription {
         _: Boolean
     }
+    type pagination {
+        currentPage:Int!
+        nextPage:Boolean!
+        prevPage:Boolean!
+    }
 `
 
 export default [linkSchema, master, member, task]

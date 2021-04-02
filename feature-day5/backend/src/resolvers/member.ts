@@ -8,10 +8,19 @@ export default {
             authorization,
             async (_,{limit, page}, {models}) => {
                 const offset:number = (page-1)*limit
-                const members = await models.Member.findAll({
+                const members = await models.Member.findAndCountAll({
                     limit, offset, order: [['createdAt', 'DESC']]
                 })
-                return members
+                if (members.rows.length === 0) {
+                    return { tasks: null }
+                }
+                const perPage = Math.ceil(members.count/limit)
+                const pageInfo = {
+                    nextPage: page < perPage,
+                    currentPage: page,
+                    prevPage: page > 1
+                }
+                return {members: members.rows, pageInfo}
             }
         ),
         searchMember: combineResolvers(
@@ -21,6 +30,18 @@ export default {
                     where: { name: { [Op.like]: `%${name}%`  } }, raw: true
                 })
                 return member
+            }
+        ),
+        member: combineResolvers(
+            authorization,
+            async (_, {id}, {models}) => {
+                const member = await models.Member.findOne({ where: { id }, raw: true })
+                const memberTasks = await models.Task.findAll({ memberId: id })
+                const responseData = {
+                    member,
+                    tasks: memberTasks
+                }
+                return responseData
             }
         )
     },
