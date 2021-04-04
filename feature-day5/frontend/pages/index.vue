@@ -1,33 +1,43 @@
 <template>
   <v-container fluid>
     <v-row justify="center" align="center">
-      <v-card class="mx-auto" min-width="500" max-width="800">
-        <v-data-table
-          :headers="tableHeaders"
-          :items="tasksItem"
-          :options.sync="options"
-          :server-items-length="taskPagination.totalData"
-          :loading="loading"
-          class="elevation-1"
+      <v-container>
+        <v-btn color="teal" outlined @click="showDialog = true"
+          >Create Task</v-btn
         >
-          <template #item.checkTask="{ item }">
-            <v-simple-checkbox
-              v-model="item.checkTask"
-              @click="
-                handleUpdateTasks({ id: item.id, isDone: item.checkTask })
-              "
-            ></v-simple-checkbox>
-          </template>
-        </v-data-table>
-      </v-card>
+        <v-card class="mx-auto" hover width="900">
+          <v-data-table
+            :headers="tableHeaders"
+            :items="tasksItem"
+            :options.sync="options"
+            :server-items-length="taskPagination.totalData"
+            :loading="loading"
+            class="elevation-1 table-tasks"
+          >
+            <template #item.checkTask="{ item }">
+              <v-simple-checkbox
+                v-model="item.checkTask"
+                @click="
+                  handleUpdateTasks({ id: item.id, isDone: item.checkTask })
+                "
+              ></v-simple-checkbox>
+            </template>
+          </v-data-table>
+        </v-card>
+        <CreateTask v-if="showDialog" v-model="showDialog" />
+      </v-container>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapState } from 'vuex'
+import CreateTask from '@/components/dialogs/CreateTask'
 
 export default {
+  components: {
+    CreateTask,
+  },
   data: () => ({
     tableHeaders: [
       {
@@ -52,13 +62,14 @@ export default {
     totalData: 0,
     loading: true,
     options: {},
+    showDialog: false,
   }),
   computed: mapState({
     tasksItem: (state) => {
       const mapTasks = state.task.tasks.map((el) => ({
         id: el.id,
         task: el.name,
-        member: el.memberId,
+        member: el.Member.name,
         checkTask: el.isDone,
       }))
       return mapTasks
@@ -67,6 +78,12 @@ export default {
   }),
   watch: {
     options: {
+      handler() {
+        this.handleGetTasks()
+      },
+      deep: true,
+    },
+    showDialog: {
       handler() {
         this.handleGetTasks()
       },
@@ -100,3 +117,4 @@ export default {
   },
 }
 </script>
+<style></style>

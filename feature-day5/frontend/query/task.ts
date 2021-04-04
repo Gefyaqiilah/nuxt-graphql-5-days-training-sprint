@@ -8,6 +8,10 @@ export const getTasks = gql`
         name
         memberId
         isDone
+        Member {
+          id
+          name
+        }
       }
       pageInfo {
         currentPage
@@ -27,5 +31,11 @@ export const updateStatusTask = gql`
       memberId
       isDone
     }
+  }
+`
+
+export const createTask = gql`
+  mutation createTask($name: String!, $memberId: Int!) {
+    createTask(name: $name, memberId: $memberId)
   }
 `

@@ -49,6 +49,18 @@ export const actions = {
     )
     return Promise.resolve(updateTask)
   },
+  async createTask({ rootState }, { memberId, name }) {
+    try {
+      const variables = { memberId, name }
+      const newTask = await rootState.client.request(
+        taskQuery.createTask,
+        variables
+      )
+      return Promise.resolve(newTask)
+    } catch (error) {
+      return Promise.reject(error.message)
+    }
+  },
 }
 
 export const getters = {
