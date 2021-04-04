@@ -7,9 +7,9 @@ export const state = () => ({
 
 export const mutations = {
   SET_MEMBERS: (state, members) => {
-    if (state.members.length === 0) {
-      return (state.members = members)
-    }
+    state.members = members
+  },
+  PUSH_MEMBERS: (state, members) => {
     state.members.push(...members)
   },
   SET_PAGINATION: (state, pagination) => {
@@ -18,7 +18,12 @@ export const mutations = {
 }
 
 export const actions = {
-  async getAllMembers({ rootState, commit, state, dispatch }, { limit, page }) {
+  async getAllMembers(
+    { rootState, commit, state, dispatch },
+    { limit, page, repeat }
+  ) {
+    console.log('repeat :>> ', repeat)
+    dispatch('setAuthorization', null, { root: true })
     const variables = { limit, page }
     const resultMembers = await rootState.client.request(
       query.getAllMembers,
@@ -29,11 +34,13 @@ export const actions = {
 
     const totalPage = state.pagination.totalPage
     const currentPage = state.pagination.currentPage + 1
-    if (totalPage && totalPage >= currentPage) {
+    if (totalPage && totalPage >= currentPage && repeat === true) {
+      console.log('awd')
       return dispatch('repeatGetAllMembers', { limit })
     }
   },
-  async repeatGetAllMembers({ rootState, commit, state }, { limit }) {
+  async repeatGetAllMembers({ rootState, commit, state, dispatch }, { limit }) {
+    dispatch('setAuthorization', null, { root: true })
     const totalPage = state.pagination.totalPage
     let currentPage = state.pagination.currentPage + 1
     while (totalPage >= currentPage) {
@@ -41,9 +48,22 @@ export const actions = {
         query.getAllMembers,
         { limit, page: currentPage }
       )
-      commit('SET_MEMBERS', resultMembers.members.members)
+      commit('PUSH_MEMBERS', resultMembers.members.members)
       commit('SET_PAGINATION', resultMembers.members.pageInfo)
       currentPage++
+    }
+  },
+  async getMemberById({ rootState, dispatch }, { id }) {
+    dispatch('setAuthorization', null, { root: true })
+    try {
+      const variables = { id }
+      const member = await rootState.client.request(
+        query.getMemberById,
+        variables
+      )
+      return Promise.resolve(member)
+    } catch (error) {
+      return Promise.reject(error.message)
     }
   },
 }

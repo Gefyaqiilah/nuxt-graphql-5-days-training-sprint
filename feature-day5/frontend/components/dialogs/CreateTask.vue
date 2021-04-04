@@ -83,6 +83,7 @@ export default {
         const data = {
           memberId: this.input.member,
           name: this.input.task,
+          repeat: true,
         }
         await this.createTask(data)
         alert('success')

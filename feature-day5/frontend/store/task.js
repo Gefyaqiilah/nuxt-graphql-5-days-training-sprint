@@ -17,12 +17,8 @@ export const mutations = {
 }
 
 export const actions = {
-  setAuthorization({ rootState }) {
-    const userToken = rootState.token
-    rootState.client.setHeader('authorization', `Bearer ${userToken}`)
-  },
   async getTasks({ rootState, commit, dispatch }, { limit, page }) {
-    dispatch('setAuthorization')
+    dispatch('setAuthorization', null, { root: true })
     const variables = { limit, page }
     const resultTasks = await rootState.client.request(
       taskQuery.getTasks,
@@ -41,7 +37,7 @@ export const actions = {
     commit('SET_PAGE_INFO', paginationOptions)
   },
   async updateStatusTask({ dispatch, rootState }, { id, isDone }) {
-    dispatch('setAuthorization')
+    dispatch('setAuthorization', null, { root: true })
     const variables = { id, isDone }
     const updateTask = await rootState.client.request(
       taskQuery.updateStatusTask,
@@ -49,7 +45,8 @@ export const actions = {
     )
     return Promise.resolve(updateTask)
   },
-  async createTask({ rootState }, { memberId, name }) {
+  async createTask({ rootState, dispatch }, { memberId, name }) {
+    dispatch('setAuthorization', null, { root: true })
     try {
       const variables = { memberId, name }
       const newTask = await rootState.client.request(

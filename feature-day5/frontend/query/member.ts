@@ -17,3 +17,19 @@ export const getAllMembers = gql`
     }
   }
 `
+export const getMemberById = gql`
+  query getMemberById($id:Int!) {
+    member(id: $id) {
+      member {
+        name
+        id
+      }
+      tasks {
+        id
+        name
+        memberId
+        isDone
+      }
+    }
+  }
+`

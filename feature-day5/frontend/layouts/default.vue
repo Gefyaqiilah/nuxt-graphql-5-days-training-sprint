@@ -75,7 +75,7 @@ export default {
         {
           icon: 'mdi-account-group',
           title: 'Member',
-          to: '/inspire',
+          to: '/member',
         },
       ],
       miniVariant: false,
