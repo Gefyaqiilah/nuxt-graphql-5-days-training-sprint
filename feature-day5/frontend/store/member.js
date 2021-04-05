@@ -22,7 +22,6 @@ export const actions = {
     { rootState, commit, state, dispatch },
     { limit, page, repeat }
   ) {
-    console.log('repeat :>> ', repeat)
     dispatch('setAuthorization', null, { root: true })
     const variables = { limit, page }
     const resultMembers = await rootState.client.request(
@@ -35,7 +34,6 @@ export const actions = {
     const totalPage = state.pagination.totalPage
     const currentPage = state.pagination.currentPage + 1
     if (totalPage && totalPage >= currentPage && repeat === true) {
-      console.log('awd')
       return dispatch('repeatGetAllMembers', { limit })
     }
   },
@@ -74,10 +72,8 @@ export const actions = {
         query.createMember,
         variables
       )
-      console.log('resultCreate :>> ', resultCreate)
       Promise.resolve(resultCreate)
     } catch (error) {
-      console.log('error :>> ', error)
       Promise.reject(error.message)
     }
   },

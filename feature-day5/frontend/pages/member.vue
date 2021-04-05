@@ -27,6 +27,7 @@
           :server-items-length="4"
           :custom-filter="filterData()"
           class="elevation-1"
+          :search="searchItem"
         >
           <template #item.action="{ item }">
             <v-btn
@@ -64,6 +65,7 @@ export default {
     DetailMember,
     CreateMember,
   },
+  middleware: ['authenticated'],
   data: () => ({
     table: {
       tableHeaders: [
@@ -122,7 +124,7 @@ export default {
     showDialogView: {
       handler() {
         this.handleGetMembers()
-      }, 
+      },
     },
     showDialogCreate: {
       handler() {
@@ -145,10 +147,8 @@ export default {
       try {
         const member = await this.getMemberById({ id })
         this.showDialogView = true
-        console.log('member.member :>> ', member.member)
         this.member = member.member.member
         this.tasks = member.member.tasks
-        console.log('tasks :>> ', this.tasks)
       } catch (error) {
         console.log('error :>> ', error)
       }

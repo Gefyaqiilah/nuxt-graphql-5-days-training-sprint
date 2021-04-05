@@ -90,7 +90,6 @@ export default {
         // close dialog 
         this.getShowDialog = false
       } catch (error) {
-        console.log('error :>> ', error);
         alert('failed')
       }
     },

@@ -44,6 +44,7 @@ export default {
   components: {
     CreateTask,
   },
+  middleware: ['authenticated'],
   data: () => ({
     tableHeaders: [
       {

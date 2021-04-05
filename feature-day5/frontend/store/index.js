@@ -1,4 +1,5 @@
 import { GraphQLClient } from 'graphql-request'
+import * as queryMaster from '../query/master'
 
 export const state = () => ({
   client: new GraphQLClient(process.env.BASE_URL),
@@ -14,7 +15,17 @@ export const mutations = {
 }
 export const actions = {
   setAuthorization({ state }) {
-    const userToken = state.token
+    const userToken = localStorage.getItem('token')
     state.client.setHeader('authorization', `Bearer ${userToken}`)
+  },
+  async login({ state }, { username, password }) {
+    try {
+      const variables = { username, password }
+      const token = await state.client.request(queryMaster.login, variables)
+      localStorage.setItem('token', token.login.token)
+      return Promise.resolve(token.login.token)
+    } catch (error) {
+      return Promise.reject(error.message)
+    }
   },
 }
