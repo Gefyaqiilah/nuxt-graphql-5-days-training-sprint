@@ -12,6 +12,10 @@
           hide-details
           clearable
         />
+        <v-spacer />
+        <v-btn color="teal" outlined @click="showDialogCreate = true">
+          Create Member
+        </v-btn>
       </v-card-title>
 
       <v-card-text class="p-0">
@@ -40,9 +44,13 @@
     </v-card>
     <DetailMember
       :member="member"
-      :dialog="showDialog"
+      :dialog="showDialogView"
       :tasks="tasks"
-      @dialog="showDialog = $event"
+      @dialog="showDialogView = $event"
+    />
+    <CreateMember
+      v-model="showDialogCreate"
+      @input="showDialogCreate = $event"
     />
   </v-container>
 </template>
@@ -50,9 +58,11 @@
 <script>
 import { mapActions, mapState } from 'vuex'
 import DetailMember from '@/components/dialogs/DetailMember'
+import CreateMember from '@/components/dialogs/CreateMember'
 export default {
   components: {
     DetailMember,
+    CreateMember,
   },
   data: () => ({
     table: {
@@ -81,10 +91,11 @@ export default {
       loading: false,
     },
     optionsTable: {},
-    showDialog: false,
+    showDialogView: false,
     member: {},
     tasks: [],
     searchItem: '',
+    showDialogCreate: false,
   }),
   computed: {
     ...mapState({
@@ -106,8 +117,18 @@ export default {
     searchItem: {
       handler() {
         // console.log('this.searchItem :>> ', this.searchItem);
-      }
-    }
+      },
+    },
+    showDialogView: {
+      handler() {
+        this.handleGetMembers()
+      }, 
+    },
+    showDialogCreate: {
+      handler() {
+        this.handleGetMembers()
+      },
+    },
   },
   mounted() {
     this.handleGetMembers()
@@ -123,7 +144,7 @@ export default {
     async handleGetMemberById(id) {
       try {
         const member = await this.getMemberById({ id })
-        this.showDialog = true
+        this.showDialogView = true
         console.log('member.member :>> ', member.member)
         this.member = member.member.member
         this.tasks = member.member.tasks
@@ -138,9 +159,9 @@ export default {
       this.tasks = []
     },
     filterData(value, search) {
-      console.log('value :>> ', value);
-      console.log('search :>> ', search);
-      console.log('search :>> ', search);
+      console.log('value :>> ', value)
+      console.log('search :>> ', search)
+      console.log('search :>> ', search)
     },
   },
 }

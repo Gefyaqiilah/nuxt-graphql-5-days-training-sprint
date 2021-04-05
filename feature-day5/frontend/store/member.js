@@ -66,4 +66,19 @@ export const actions = {
       return Promise.reject(error.message)
     }
   },
+  async createMember({ rootState, dispatch }, { name }) {
+    dispatch('setAuthorization', null, { root: true })
+    try {
+      const variables = { name }
+      const resultCreate = await rootState.client.request(
+        query.createMember,
+        variables
+      )
+      console.log('resultCreate :>> ', resultCreate)
+      Promise.resolve(resultCreate)
+    } catch (error) {
+      console.log('error :>> ', error)
+      Promise.reject(error.message)
+    }
+  },
 }

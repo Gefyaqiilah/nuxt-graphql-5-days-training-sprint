@@ -18,7 +18,7 @@ export const getAllMembers = gql`
   }
 `
 export const getMemberById = gql`
-  query getMemberById($id:Int!) {
+  query getMemberById($id: Int!) {
     member(id: $id) {
       member {
         name
@@ -31,5 +31,10 @@ export const getMemberById = gql`
         isDone
       }
     }
+  }
+`
+export const createMember = gql`
+  mutation createMember($name: String!) {
+    createMember(name: $name)
   }
 `
