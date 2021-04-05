@@ -73,7 +73,7 @@ export default {
     }),
   },
   mounted() {
-    this.getAllMembers({ limit: 1, page: 1 })
+    this.getAllMembers({ limit: 1, page: 1, repeat: true })
   },
   methods: {
     ...mapActions('member', ['getAllMembers']),

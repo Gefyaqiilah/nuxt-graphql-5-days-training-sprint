@@ -11,6 +11,7 @@
                   v-model="getMember.name"
                   prepend-icon="mdi-account-circle"
                   label="Username*"
+                  disabled
                 />
               </v-col>
               <v-col cols="12">

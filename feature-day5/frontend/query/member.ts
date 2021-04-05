@@ -38,3 +38,11 @@ export const createMember = gql`
     createMember(name: $name)
   }
 `
+export const searchMember = gql`
+  query searchMember($name: String!) {
+    searchMember(name: $name) {
+      name
+      id
+    }
+  }
+`

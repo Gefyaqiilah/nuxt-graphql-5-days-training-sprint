@@ -11,6 +11,8 @@
           single-line
           hide-details
           clearable
+          @click:clear="handleGetMembers()"
+          @keyup.enter="handleSearchMember()"
         />
         <v-spacer />
         <v-btn color="teal" outlined @click="showDialogCreate = true">
@@ -25,7 +27,6 @@
           :options.sync="optionsTable"
           :loading="table.loading"
           :server-items-length="4"
-          :custom-filter="filterData()"
           class="elevation-1"
           :search="searchItem"
         >
@@ -57,7 +58,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { mapActions, mapState, mapMutations } from 'vuex'
 import DetailMember from '@/components/dialogs/DetailMember'
 import CreateMember from '@/components/dialogs/CreateMember'
 export default {
@@ -116,27 +117,13 @@ export default {
       },
       deep: true,
     },
-    searchItem: {
-      handler() {
-        // console.log('this.searchItem :>> ', this.searchItem);
-      },
-    },
-    showDialogView: {
-      handler() {
-        this.handleGetMembers()
-      },
-    },
-    showDialogCreate: {
-      handler() {
-        this.handleGetMembers()
-      },
-    },
   },
   mounted() {
     this.handleGetMembers()
   },
   methods: {
-    ...mapActions('member', ['getAllMembers', 'getMemberById']),
+    ...mapActions('member', ['getAllMembers', 'getMemberById', 'searchMember']),
+    ...mapMutations('member', ['SET_MEMBERS']),
     async handleGetMembers() {
       const { page, itemsPerPage } = this.optionsTable
       this.table.loading = true
@@ -158,10 +145,15 @@ export default {
       this.member = {}
       this.tasks = []
     },
-    filterData(value, search) {
-      console.log('value :>> ', value)
-      console.log('search :>> ', search)
-      console.log('search :>> ', search)
+    async handleSearchMember() {
+      if (!this.searchItem.length) return false
+      try {
+        const matchMembers = await this.searchMember({ name: this.searchItem })
+        const members = matchMembers.searchMember
+        this.SET_MEMBERS(members)
+      } catch (error) {
+        console.log('error :>> ', error)
+      }
     },
   },
 }

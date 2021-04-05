@@ -77,4 +77,17 @@ export const actions = {
       Promise.reject(error.message)
     }
   },
+  async searchMember({ rootState, dispatch }, { name }) {
+    dispatch('setAuthorization', null, { root: true })
+    try {
+      const members = await rootState.client.request(query.searchMember, {
+        name,
+      })
+      console.log('members :>> ', members);
+      return Promise.resolve(members)
+    } catch (error) {
+      console.log('error.message :>> ', error.message);
+      return Promise.reject(error.message)
+    }
+  },
 }

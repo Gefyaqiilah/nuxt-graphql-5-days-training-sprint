@@ -14,6 +14,7 @@
           :to="item.to"
           router
           exact
+          @click="item.click()"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -36,10 +37,6 @@
         <v-icon>mdi-minus</v-icon>
       </v-btn>
       <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -71,7 +68,15 @@ export default {
           icon: 'mdi-key',
           title: 'Login',
           to: '/login',
-        }
+        },
+        {
+          icon: 'mdi-logout',
+          title: 'Logout',
+          click: () => {
+            localStorage.removeItem('token')
+            this.$router.push({ path: '/login' })
+          },
+        },
       ],
       miniVariant: false,
       right: true,
