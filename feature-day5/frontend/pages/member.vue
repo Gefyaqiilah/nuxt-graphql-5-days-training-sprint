@@ -1,27 +1,43 @@
 <template>
   <v-container fluid>
-    <v-row justify="center" align="center">
-      <v-data-table
-        :headers="table.tableHeaders"
-        :items="tableItems"
-        :options.sync="optionsTable"
-        :loading="table.loading"
-        :server-items-length="4"
-        class="elevation-1"
-      >
-        <template #item.action="{ item }">
-          <v-btn
-            color="blue-grey"
-            x-small
-            outlined
-            class="ma-5 white--text"
-            @click="handleGetMemberById(item.id)"
-          >
-            <v-icon small center dark>mdi-eye-settings </v-icon>
-          </v-btn>
-        </template>
-      </v-data-table>
-    </v-row>
+    <v-card>
+      <v-card-title>
+        Members
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="searchItem"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+          clearable
+        />
+      </v-card-title>
+
+      <v-card-text class="p-0">
+        <v-data-table
+          :headers="table.tableHeaders"
+          :items="tableItems"
+          :options.sync="optionsTable"
+          :loading="table.loading"
+          :server-items-length="4"
+          :custom-filter="filterData()"
+          class="elevation-1"
+        >
+          <template #item.action="{ item }">
+            <v-btn
+              color="blue-grey"
+              x-small
+              outlined
+              class="ma-5 white--text"
+              @click="handleGetMemberById(item.id)"
+            >
+              <v-icon small center dark>mdi-eye-settings </v-icon>
+            </v-btn>
+          </template>
+        </v-data-table>
+      </v-card-text>
+    </v-card>
     <DetailMember
       :member="member"
       :dialog="showDialog"
@@ -46,12 +62,14 @@ export default {
           align: 'start',
           sortable: false,
           value: 'name',
+          filterable: true,
         },
         {
           text: 'Actions',
           align: 'start',
           sortable: false,
           value: 'action',
+          filterable: false,
         },
       ],
       items: [
@@ -66,6 +84,7 @@ export default {
     showDialog: false,
     member: {},
     tasks: [],
+    searchItem: '',
   }),
   computed: {
     ...mapState({
@@ -84,6 +103,11 @@ export default {
       },
       deep: true,
     },
+    searchItem: {
+      handler() {
+        // console.log('this.searchItem :>> ', this.searchItem);
+      }
+    }
   },
   mounted() {
     this.handleGetMembers()
@@ -112,6 +136,11 @@ export default {
       this.showDialog = value
       this.member = {}
       this.tasks = []
+    },
+    filterData(value, search) {
+      console.log('value :>> ', value);
+      console.log('search :>> ', search);
+      console.log('search :>> ', search);
     },
   },
 }

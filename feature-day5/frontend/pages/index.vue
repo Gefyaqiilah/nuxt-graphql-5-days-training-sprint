@@ -2,27 +2,33 @@
   <v-container fluid>
     <v-row justify="center" align="center">
       <v-container>
-        <v-btn color="teal" outlined @click="showDialog = true"
-          >Create Task</v-btn
-        >
         <v-card class="mx-auto" hover width="900">
-          <v-data-table
-            :headers="tableHeaders"
-            :items="tasksItem"
-            :options.sync="options"
-            :server-items-length="taskPagination.totalData"
-            :loading="loading"
-            class="elevation-1 table-tasks"
-          >
-            <template #item.checkTask="{ item }">
-              <v-simple-checkbox
-                v-model="item.checkTask"
-                @click="
-                  handleUpdateTasks({ id: item.id, isDone: item.checkTask })
-                "
-              ></v-simple-checkbox>
-            </template>
-          </v-data-table>
+          <v-card-title>
+            Tasks
+            <v-spacer />
+            <v-btn color="teal" outlined @click="showDialog = true"
+              >Create Task</v-btn
+            >
+          </v-card-title>
+          <v-card-text>
+            <v-data-table
+              :headers="tableHeaders"
+              :items="tasksItem"
+              :options.sync="options"
+              :server-items-length="taskPagination.totalData"
+              :loading="loading"
+              class="elevation-1 table-tasks"
+            >
+              <template #item.checkTask="{ item }">
+                <v-simple-checkbox
+                  v-model="item.checkTask"
+                  @click="
+                    handleUpdateTasks({ id: item.id, isDone: item.checkTask })
+                  "
+                ></v-simple-checkbox>
+              </template>
+            </v-data-table>
+          </v-card-text>
         </v-card>
         <CreateTask v-if="showDialog" v-model="showDialog" />
       </v-container>
