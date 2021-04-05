@@ -7,7 +7,7 @@
         <v-text-field
           v-model="searchItem"
           append-icon="mdi-magnify"
-          label="Search"
+          label="Search Member"
           single-line
           hide-details
           clearable

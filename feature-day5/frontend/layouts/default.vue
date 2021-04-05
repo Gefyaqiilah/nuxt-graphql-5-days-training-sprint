@@ -14,7 +14,7 @@
           :to="item.to"
           router
           exact
-          @click="item.click()"
+          @click="item.click ? item.click() : null"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
