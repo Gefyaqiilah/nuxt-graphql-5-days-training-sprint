@@ -117,6 +117,11 @@ export default {
       },
       deep: true,
     },
+    showDialogCreate: {
+      handler() {
+        this.handleGetMembers()
+      },
+    },
   },
   mounted() {
     this.handleGetMembers()
@@ -127,7 +132,11 @@ export default {
     async handleGetMembers() {
       const { page, itemsPerPage } = this.optionsTable
       this.table.loading = true
-      await this.getAllMembers({ limit: itemsPerPage, page, repeat: false })
+      const members = await this.getAllMembers({
+        limit: itemsPerPage,
+        page,
+        repeat: false,
+      })
       this.table.loading = false
     },
     async handleGetMemberById(id) {

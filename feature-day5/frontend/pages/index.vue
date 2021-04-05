@@ -12,6 +12,7 @@
           </v-card-title>
           <v-card-text>
             <v-data-table
+              v-if="tasksItem.length !== 0"
               :headers="tableHeaders"
               :items="tasksItem"
               :options.sync="options"
@@ -73,6 +74,7 @@ export default {
   }),
   computed: mapState({
     tasksItem: (state) => {
+      if (state.task.tasks.length === 0) return []
       const mapTasks = state.task.tasks.map((el) => ({
         id: el.id,
         task: el.name,
@@ -99,6 +101,7 @@ export default {
   },
   mounted() {
     this.handleGetTasks()
+    console.log('tasksItem',this.tasksItem.length)
   },
   methods: {
     ...mapActions('task', ['getTasks', 'updateStatusTask']),
@@ -107,8 +110,8 @@ export default {
       const { page, itemsPerPage } = this.options
 
       await this.getTasks({
-        limit: itemsPerPage,
-        page,
+        limit: itemsPerPage || 5,
+        page: page || 1,
       })
       // set table
       this.loading = false

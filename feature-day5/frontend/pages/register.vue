@@ -4,7 +4,7 @@
       <v-col cols="6" class="d-flex justify-center">
         <v-card>
           <v-card-title>
-            <h2>Login</h2>
+            <h2>Register</h2>
           </v-card-title>
           <v-card-text>
             <v-row>
@@ -33,8 +33,8 @@
             </v-row>
           </v-card-text>
           <v-card-actions>
-            <v-btn class="ma-2" color="teal" dark @click="handleLogin()">
-              Login
+            <v-btn class="ma-2" color="teal" dark @click="handleRegister()">
+              Register
               <v-icon dark right> mdi-key</v-icon>
             </v-btn>
           </v-card-actions>
@@ -46,8 +46,13 @@
 
 <script>
 import { mapActions } from 'vuex'
+
 export default {
   data: () => ({
+    input: {
+      username: '',
+      password: '',
+    },
     validation: {
       password: [
         (value) => !!value || 'Required',
@@ -58,30 +63,25 @@ export default {
         (value) => (value && value.length >= 3) || 'Min 3 Characters',
       ],
     },
-    input: {
-      username: 'jhon',
-      password: '123',
-    },
     visibility: {
       password: false,
     },
   }),
   methods: {
-    ...mapActions(['login']),
-    async handleLogin() {
-      if (!this.input.username || !this.input.password) {
-        return false
-      }
-      const data = {
-        username: this.input.username,
-        password: this.input.password,
-      }
+    ...mapActions('master', ['createNewMaster']),
+    async handleRegister() {
+      if (!this.input.username || !this.input.password) return false
       try {
-        await this.login(data)
-        this.$router.push({ path: '/' })
-        alert('succeed')
+        const data = {
+          username: this.input.username,
+          password: this.input.password,
+        }
+        const dataMember = await this.createNewMaster(data)
+        console.log('dataMember :>> ', dataMember)
+        alert("Your account has been created!, Let's go login!")
+        this.$router.push({ path: 'login' })
       } catch (error) {
-        console.log('error.message :>> ', error.message);
+        console.log('error.message :>> ', error.message)
         alert('error')
       }
     },
@@ -89,8 +89,4 @@ export default {
 }
 </script>
 
-<style scoped>
-.container {
-  min-height: 100vh;
-}
-</style>
+<style lang="scss" scoped></style>

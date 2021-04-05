@@ -20,11 +20,13 @@ export const actions = {
   async getTasks({ rootState, commit, dispatch }, { limit, page }) {
     dispatch('setAuthorization', null, { root: true })
     const variables = { limit, page }
+    console.log('variables :>> ', variables)
     const resultTasks = await rootState.client.request(
       taskQuery.getTasks,
       variables
     )
-    commit('SET_TASKS', resultTasks.tasks.tasks)
+    console.log('resultTasks.tasks.tasks :>> ', resultTasks.tasks.tasks)
+    commit('SET_TASKS', resultTasks.tasks.tasks || [])
     // set pagination
     dispatch('setPagination', { limit, page, ...resultTasks.tasks.pageInfo })
 

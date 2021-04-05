@@ -28,11 +28,13 @@ export const actions = {
       query.getAllMembers,
       variables
     )
-    commit('SET_MEMBERS', resultMembers.members.members)
+    console.log('cekcek')
+    if (!resultMembers.members.members) return Promise.resolve([])
+    commit('SET_MEMBERS', resultMembers.members.members || [])
     commit('SET_PAGINATION', resultMembers.members.pageInfo)
 
-    const totalPage = state.pagination.totalPage
-    const currentPage = state.pagination.currentPage + 1
+    const totalPage = state.pagination.totalPage || 0
+    const currentPage = state.pagination.currentPage + 1 || 0
     if (totalPage && totalPage >= currentPage && repeat === true) {
       return dispatch('repeatGetAllMembers', { limit })
     }

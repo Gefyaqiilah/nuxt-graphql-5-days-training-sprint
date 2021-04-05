@@ -7,3 +7,11 @@ export const login = gql`
     }
   }
 `
+export const createMaster = gql`
+  mutation createNewMaster($username: String!, $password: String!) {
+    createMaster(username: $username, password: $password) {
+      username
+      id
+    }
+  }
+`
