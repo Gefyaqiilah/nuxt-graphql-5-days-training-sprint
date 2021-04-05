@@ -10,7 +10,8 @@ const Member = sequelize.define('Member', {
     },
     name: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     masterId: {
         type: DataTypes.INTEGER,

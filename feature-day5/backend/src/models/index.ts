@@ -4,11 +4,11 @@ import Member from './member'
 import Task from './task'
 
 // associations
-Task.belongsTo(Member)
+Task.belongsTo(Member, { foreignKey: 'memberId' })
 Task.belongsTo(Master)
 
 Member.belongsTo(Master)
-Member.hasMany(Task)
+Member.hasMany(Task, { foreignKey: 'memberId', as: 'TasksMember' })
 
 Master.hasMany(Member)
 Master.hasMany(Task)

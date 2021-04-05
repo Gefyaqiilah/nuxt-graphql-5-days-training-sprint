@@ -18,5 +18,6 @@ export default gql`
         memberId:Int!
         isDone:Boolean!
     }
+    Member:Member
 
 `

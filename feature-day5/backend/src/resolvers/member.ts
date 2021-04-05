@@ -6,10 +6,11 @@ export default {
     Query: {
         members: combineResolvers(
             authorization,
-            async (_,{limit, page}, {models}) => {
+            async (_,{limit, page}, {models, userLogin}) => {
                 const offset:number = (page-1)*limit
                 const members = await models.Member.findAndCountAll({
-                    limit, offset, order: [['createdAt', 'DESC']]
+                    limit, offset, order: [['createdAt', 'DESC']],
+                    where: { masterId: userLogin.id }
                 })
                 if (members.rows.length === 0) {
                     return { tasks: null }
@@ -18,7 +19,9 @@ export default {
                 const pageInfo = {
                     nextPage: page < perPage,
                     currentPage: page,
-                    prevPage: page > 1
+                    prevPage: page > 1,
+                    totalPage: perPage,
+                    totalData: members.count
                 }
                 return {members: members.rows, pageInfo}
             }
@@ -34,9 +37,11 @@ export default {
         ),
         member: combineResolvers(
             authorization,
-            async (_, {id}, {models}) => {
-                const member = await models.Member.findOne({ where: { id }, raw: true })
-                const memberTasks = await models.Task.findAll({ memberId: id })
+            async (_, {id}, {models, userLogin}) => {
+                const member = await models.Member.findOne({ where: { id, masterId: userLogin.id },
+                     raw: true
+                })
+                const memberTasks = await models.Task.findAll({where:{ memberId: id }})
                 const responseData = {
                     member,
                     tasks: memberTasks

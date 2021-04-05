@@ -17,6 +17,8 @@ const linkSchema = gql`
         currentPage:Int!
         nextPage:Boolean!
         prevPage:Boolean!
+        totalPage:Int!
+        totalData:Int!
     }
 `
 
